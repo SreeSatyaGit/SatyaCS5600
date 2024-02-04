@@ -8,6 +8,15 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGUMENTS 10
 
+void foo(char *arguments[]) {
+    int num1 = atoi(arguments[1]);
+    int num2 = atoi(arguments[2]);
+
+    printf("Sum of %d and %d is: %d\n", num1, num2, num1 + num2);
+}
+
+
+
 void execute_command(char *command, char *arguments[]) {
     pid_t pid = fork();
 
@@ -16,9 +25,15 @@ void execute_command(char *command, char *arguments[]) {
         exit(EXIT_FAILURE);
     } else if (pid == 0) {
         // Child process
-        execvp(command, arguments);
-        perror("execvp");  // This will be printed only if execvp fails
-        exit(EXIT_FAILURE);
+        if (strcmp(command, "foo") == 0) {
+            // Call the custom function for 'foo'
+            foo(arguments);
+            exit(EXIT_SUCCESS);
+        } else {
+            execvp(command, arguments);
+            perror("execvp");  // This will be printed only if execvp fails
+            exit(EXIT_FAILURE);
+        }
     } else {
         // Parent process
         int status;
