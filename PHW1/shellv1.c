@@ -58,7 +58,7 @@ int main() {
         if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
         }
-
+        printf("Input after remving \n : %s\n",input);
         // Exit the shell if the user enters 'dead'
         if (strcmp(input, "dead") == 0) {
             break;
