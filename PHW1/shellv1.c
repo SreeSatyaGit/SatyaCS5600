@@ -15,8 +15,6 @@ void foo(char *arguments[]) {
     printf("Sum of %d and %d is: %d\n", num1, num2, num1 + num2);
 }
 
-
-
 void execute_command(char *command, char *arguments[]) {
     pid_t pid = fork();
 
@@ -61,25 +59,33 @@ int main() {
             input[len - 1] = '\0';
         }
 
-        // Exit the shell if the user enters 'kill'
+        // Exit the shell if the user enters 'dead'
         if (strcmp(input, "dead") == 0) {
             break;
         }
 
-        // Tokenize the input into command and arguments
-        char *token = strtok(input, " ");
-        int i = 0;
+        // Tokenize the input into command and arguments using semicolon as delimiter
+        char *token = strtok(input, ";");
+        
+        while (token != NULL) {
+            // Tokenize each command into command and arguments using space as delimiter
+            char *cmd_token = strtok(token, " ");
+            int i = 0;
 
-        while (token != NULL && i < MAX_ARGUMENTS - 1) {
-            arguments[i++] = token;
+            while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
+                arguments[i++] = cmd_token;
+                cmd_token = strtok(NULL, " ");
+            }
+
+            arguments[i] = NULL;  // Null-terminate the arguments array
+
+            // Execute the command
+            if (i > 0) {
+                execute_command(arguments[0], arguments);
+            }
+
+            // Move to the next command
             token = strtok(NULL, ";");
-        }
-
-        arguments[i] = NULL;  // Null-terminate the arguments array
-
-        // Execute the command
-        if (i > 0) {
-            execute_command(arguments[0], arguments);
         }
     }
 
