@@ -72,7 +72,7 @@ int main() {
 
         while (token != NULL && i < MAX_ARGUMENTS - 1) {
             arguments[i++] = token;
-            token = strtok(NULL, " ");
+            token = strtok(NULL, ";");
         }
 
         arguments[i] = NULL;  // Null-terminate the arguments array
