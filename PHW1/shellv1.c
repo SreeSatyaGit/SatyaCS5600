@@ -37,7 +37,7 @@ int main() {
     char *arguments[MAX_ARGUMENTS];
 
     while (1) {
-        printf("Prompt ('kill' to quit): ");
+        printf("Prompt ('dead' to quit): ");
         fgets(input, sizeof(input), stdin);
 
         // Remove newline character at the end of the input
@@ -46,8 +46,8 @@ int main() {
             input[len - 1] = '\0';
         }
 
-        // Exit the shell if the user enters 'exit'
-        if (strcmp(input, "kill") == 0) {
+        // Exit the shell if the user enters 'kill'
+        if (strcmp(input, "dead") == 0) {
             break;
         }
 
