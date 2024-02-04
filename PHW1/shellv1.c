@@ -47,7 +47,7 @@ void execute_command(char *command, char *arguments[]) {
 
 int main() {
     char input[MAX_COMMAND_LENGTH];
-    char *arguments[MAX_ARGUMENTS];
+    char *commands[MAX_ARGUMENTS];  // Changed the array name to 'commands'
 
     while (1) {
         printf("Prompt ('dead' to quit): ");
@@ -64,24 +64,24 @@ int main() {
             break;
         }
 
-        // Tokenize the input into command and arguments using semicolon as delimiter
+        // Tokenize the input into commands using semicolon as delimiter
         char *token = strtok(input, ";");
-        
+
         while (token != NULL) {
             // Tokenize each command into command and arguments using space as delimiter
             char *cmd_token = strtok(token, " ");
             int i = 0;
 
             while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
-                arguments[i++] = cmd_token;
+                commands[i++] = cmd_token;
                 cmd_token = strtok(NULL, " ");
             }
 
-            arguments[i] = NULL;  // Null-terminate the arguments array
+            commands[i] = NULL;  // Null-terminate the commands array
 
             // Execute the command
             if (i > 0) {
-                execute_command(arguments[0], arguments);
+                execute_command(commands[0], commands);
             }
 
             // Move to the next command
