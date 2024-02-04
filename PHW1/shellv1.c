@@ -66,16 +66,17 @@ int main() {
 
         // Tokenize the input into commands using semicolon as delimiter
         char *token = strtok(input, ";");
-        printf("Token : %s\n", token);
+
         while (token != NULL) {
-        
+
+            
             // Tokenize each command into command and arguments using space as delimiter
-            char *cmd_token = strtok(token, ";");
+            char *cmd_token = strtok(token, " ");
             int i = 0;
 
             while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
                 commands[i++] = cmd_token;
-                cmd_token = strtok(NULL, " ;");
+                cmd_token = strtok(NULL, " ");
             }
 
             commands[i] = NULL;  // Null-terminate the commands array
@@ -85,10 +86,10 @@ int main() {
                 execute_command(commands[0], commands);
             }
 
-             
+            // Move to the next command
             
         }
-       token = strtok(NULL, ";");
+        token = strtok(NULL, " ");
     }
 
     printf("Exiting the shell. Goodbye!\n");
