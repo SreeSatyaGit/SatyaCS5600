@@ -52,7 +52,7 @@ int main() {
     while (1) {
         printf("Prompt ('dead' to quit): ");
         fgets(input, sizeof(input), stdin);
-
+        printf("Input : %s\n",input);
         // Remove newline character at the end of the input
         size_t len = strlen(input);
         if (len > 0 && input[len - 1] == '\n') {
