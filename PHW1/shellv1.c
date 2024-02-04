@@ -87,9 +87,9 @@ int main() {
             }
 
             // Move to the next command
-            token = strtok(NULL, ";");
             
         }
+        token = strtok(NULL, ";");
     }
 
     printf("Exiting the shell. Goodbye!\n");
