@@ -52,20 +52,20 @@ int main() {
     while (1) {
         printf("Prompt ('dead' to quit): ");
         fgets(input, sizeof(input), stdin);
-        printf("Input : %s\n",input);
+
         // Remove newline character at the end of the input
         size_t len = strlen(input);
         if (len > 0 && input[len - 1] == '\n') {
             input[len - 1] = '\0';
         }
-        printf("Input after remving \n : %s\n",input);
+
         // Exit the shell if the user enters 'dead'
         if (strcmp(input, "dead") == 0) {
             break;
         }
 
         // Tokenize the input into commands using semicolon as delimiter
-        char *token = strtok(input, ";");
+        char *token = strtok(input, " ");
         printf("Token : %s\n", token);
         while (token != NULL) {
         
