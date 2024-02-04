@@ -87,7 +87,7 @@ int main() {
             }
 
             // Move to the next command
-            token = strtok(NULL, ";");
+            token = strtok(input, ";");
         }
     }
 
