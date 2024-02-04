@@ -71,7 +71,7 @@ int main() {
 
             
             // Tokenize each command into command and arguments using space as delimiter
-            char *cmd_token = strtok(token, " ");
+            char *cmd_token = strtok(token, ";");
             int i = 0;
 
             while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
@@ -90,7 +90,6 @@ int main() {
             token = strtok(NULL, ";");
             
         }
-        token = strtok(NULL, " ");
     }
 
     printf("Exiting the shell. Goodbye!\n");
