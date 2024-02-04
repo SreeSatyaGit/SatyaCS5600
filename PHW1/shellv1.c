@@ -65,7 +65,7 @@ int main() {
         }
 
         // Tokenize the input into commands using semicolon as delimiter
-        char *token = strtok(input, " ");
+        char *token = strtok(input, ";");
         printf("Token : %s\n", token);
         while (token != NULL) {
         
@@ -75,7 +75,7 @@ int main() {
 
             while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
                 commands[i++] = cmd_token;
-                cmd_token = strtok(NULL, " ");
+                
             }
 
             commands[i] = NULL;  // Null-terminate the commands array
