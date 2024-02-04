@@ -68,7 +68,7 @@ int main() {
         char *token = strtok(input, ";");
 
         while (token != NULL) {
-            printf("Token : %c", &token);
+            printf("Token : %s\n", token);
             
             // Tokenize each command into command and arguments using space as delimiter
             char *cmd_token = strtok(token, " ");
