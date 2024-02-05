@@ -15,6 +15,8 @@ void foo(char *arguments[]) {
     printf("Sum of %d and %d is: %d\n", num1, num2, num1 + num2);
 }
 
+
+
 void execute_command(char *command, char *arguments[]) {
     pid_t pid = fork();
 
@@ -47,7 +49,7 @@ void execute_command(char *command, char *arguments[]) {
 
 int main() {
     char input[MAX_COMMAND_LENGTH];
-    char *commands[MAX_ARGUMENTS];  // Changed the array name to 'commands'
+    char *arguments[MAX_ARGUMENTS];
 
     while (1) {
         printf("Prompt ('dead' to quit): ");
@@ -59,36 +61,26 @@ int main() {
             input[len - 1] = '\0';
         }
 
-        // Exit the shell if the user enters 'dead'
+        // Exit the shell if the user enters 'kill'
         if (strcmp(input, "dead") == 0) {
             break;
         }
 
-        // Tokenize the input into commands using semicolon as delimiter
-        char *token = strtok(input, ";");
+        // Tokenize the input into command and arguments
+        char *token = strtok(input, " ");
+        int i = 0;
 
-        while (token != NULL) {
-
-            
-            // Tokenize each command into command and arguments using space as delimiter
-            char *cmd_token = strtok(token, " ");
-            int i = 0;
-
-            while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
-                commands[i++] = cmd_token;
-            }
-
-            commands[i] = NULL;  // Null-terminate the commands array
-
-            // Execute the command
-            if (i > 0) {
-                execute_command(commands[0], commands);
-            }
-
-            // Move to the next command
-            
+        while (token != NULL && i < MAX_ARGUMENTS - 1) {
+            arguments[i++] = token;
+            token = strtok(NULL, " ");
         }
-        token = strtok(NULL, ";");
+
+        arguments[i] = NULL;  // Null-terminate the arguments array
+
+        // Execute the command
+        if (i > 0) {
+            execute_command(arguments[0], arguments);
+        }
     }
 
     printf("Exiting the shell. Goodbye!\n");
