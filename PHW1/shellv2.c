@@ -7,9 +7,53 @@
 
 #define MAX_INPUT_SIZE 512
 
+int splitString(const char *input, char *delimiter, char ***tokens) {
+    // Make a copy of the input string to avoid modifying the original
+    char *inputCopy = strdup(input);
+    if (inputCopy == NULL) {
+        perror("Error duplicating input string");
+        exit(EXIT_FAILURE);
+    }
+
+    // Initialize variables
+    int count = 0;
+    char *token = strtok(inputCopy, delimiter);
+
+    // Count the number of tokens
+    while (token != NULL) {
+        count++;
+        token = strtok(NULL, delimiter);
+    }
+
+    // Allocate memory for the array of tokens
+    *tokens = (char **)malloc(count * sizeof(char *));
+    if (*tokens == NULL) {
+        perror("Error allocating memory for tokens");
+        exit(EXIT_FAILURE);
+    }
+
+    // Copy tokens into the array
+    strcpy(inputCopy, input);
+    token = strtok(inputCopy, delimiter);
+    for (int i = 0; i < count; i++) {
+        (*tokens)[i] = strdup(token);
+        if ((*tokens)[i] == NULL) {
+            perror("Error duplicating token");
+            exit(EXIT_FAILURE);
+        }
+        token = strtok(NULL, delimiter);
+    }
+
+    // Free the duplicated input string
+    free(inputCopy);
+
+    return count;
+}
+
+
+
 void executeCommand(char *args[]) {
     pid_t pid = fork();
-
     if (pid == -1) {
         perror("Error forking process");
         exit(EXIT_FAILURE);
@@ -60,34 +104,21 @@ int main(int argc, char *argv[]) {
             printf("%s", input);  // Echo the command in batch mode
         }
 
+    char *delimiter = ";";
+    char **tokens;
+    
+    int count = splitString(input, delimiter, &tokens);
+
+    for (int i = 0; i < count; i++) {
+        char *args[10];  // Assuming a maximum of 10 arguments
+        int j = 0;
+        args[j++] = strtok(tokens[i], " \t\n");
+        while ((args[j++] = strtok(NULL, " \t\n")) != NULL && j < 10);
+
+        // Execute the command
+        executeCommand(args);
         
-        // Tokenize the input into commands separated by ';'
-        char *token = strtok(input, ";");
-        printf("Token: %s\n",token);
-        while (token != NULL) {
-            // Trim leading and trailing whitespaces
-            while (*token == ' ' || *token == '\t') {
-                token++;
-            }
-            size_t len = strlen(token);
-            while (len > 0 && (token[len - 1] == ' ' || token[len - 1] == '\t' || token[len - 1] == '\n')) {
-                token[--len] = '\0';
-            }
-            // Skip empty commands
-            if (strlen(token) > 0) {
-                // Tokenize command arguments
-                char *args[10];  // Assuming a maximum of 10 arguments
-                int i = 0;
-                args[i++] = strtok(token, " \t\n");
-                while ((args[i++] = strtok(NULL, " \t\n")) != NULL && i < 10);
-
-                // Execute the command
-                executeCommand(args);
-            }
-
-            token = strtok(NULL, ";");
-        }
-
+    }
         // Wait for all child processes to finish before prompting for the next input
         while (waitpid(-1, NULL, 0) > 0);
     }

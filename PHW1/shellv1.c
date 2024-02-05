@@ -8,15 +8,6 @@
 #define MAX_COMMAND_LENGTH 100
 #define MAX_ARGUMENTS 10
 
-void foo(char *arguments[]) {
-    int num1 = atoi(arguments[1]);
-    int num2 = atoi(arguments[2]);
-
-    printf("Sum of %d and %d is: %d\n", num1, num2, num1 + num2);
-}
-
-
-
 void execute_command(char *command, char *arguments[]) {
     pid_t pid = fork();
 
@@ -25,15 +16,9 @@ void execute_command(char *command, char *arguments[]) {
         exit(EXIT_FAILURE);
     } else if (pid == 0) {
         // Child process
-        if (strcmp(command, "foo") == 0) {
-            // Call the custom function for 'foo'
-            foo(arguments);
-            exit(EXIT_SUCCESS);
-        } else {
-            execvp(command, arguments);
-            perror("execvp");  // This will be printed only if execvp fails
-            exit(EXIT_FAILURE);
-        }
+        execvp(command, arguments);
+        perror("execvp");  // This will be printed only if execvp fails
+        exit(EXIT_FAILURE);
     } else {
         // Parent process
         int status;
@@ -52,7 +37,7 @@ int main() {
     char *arguments[MAX_ARGUMENTS];
 
     while (1) {
-        printf("Prompt ('dead' to quit): ");
+        printf("Prompt ('kill' to quit): ");
         fgets(input, sizeof(input), stdin);
 
         // Remove newline character at the end of the input
@@ -61,8 +46,8 @@ int main() {
             input[len - 1] = '\0';
         }
 
-        // Exit the shell if the user enters 'kill'
-        if (strcmp(input, "dead") == 0) {
+        // Exit the shell if the user enters 'exit'
+        if (strcmp(input, "kill") == 0) {
             break;
         }
 
