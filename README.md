@@ -45,7 +45,7 @@ make clean
 
 ```
 
-##Additional Notes
+### Additional Notes
 
 The program uses the execvp() function for command execution.
 Please ensure that the program is compiled before running it.
