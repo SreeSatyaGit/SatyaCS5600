@@ -18,11 +18,13 @@ This will create an executable named shell.
 ```
 ./shell
 ```
+In interactive mode, the shell prompts the user to enter commands. Type commands and press Enter. To exit the shell, enter the command quit.
 * Batch Mode
  ```
 ./shell [batch file]
 ```
-In interactive mode, the shell prompts the user to enter commands. Type commands and press Enter. To exit the shell, enter the command quit.
+In batch mode, the shell reads commands from the specified batch file. The batch file should contain a list of commands. The shell will execute each command in the order they appear in the file. To exit the shell, include the quit command in the batch file or press Ctrl-D if in interactive mode.
+
 ### Executing program
 
 * How to run the program
