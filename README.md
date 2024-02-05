@@ -44,10 +44,6 @@ The Makefile included in the project simplifies the compilation process. The def
 make clean
 
 ```
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 ##Additional Notes
 
