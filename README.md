@@ -34,7 +34,7 @@ ls -l ; echo "Hello World" ; pwd
 ```
 In this example, the ls -l, echo "Hello World", and pwd commands will run concurrently.
 
-## Error Handling
+### Error Handling
 
 The program includes basic error handling for invalid input, file opening errors, and command execution errors. If an error occurs, an error message is displayed, and the program exits gracefully.
 
