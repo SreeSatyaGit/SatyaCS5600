@@ -25,45 +25,32 @@ In interactive mode, the shell prompts the user to enter commands. Type commands
 ```
 In batch mode, the shell reads commands from the specified batch file. The batch file should contain a list of commands. The shell will execute each command in the order they appear in the file. To exit the shell, include the quit command in the batch file or press Ctrl-D if in interactive mode.
 
-### Executing program
+### Command Syntax
 
-* How to run the program
-* Step-by-step bullets
+The shell supports basic command syntax similar to other Unix-like shells. Commands can be separated by a semicolon (;). Multiple commands on the same line will be executed concurrently.
 ```
-code blocks for commands
+ls -l ; echo "Hello World" ; pwd
+
 ```
+In this example, the ls -l, echo "Hello World", and pwd commands will run concurrently.
 
-## Help
+## Error Handling
 
-Any advise for common problems or issues.
+The program includes basic error handling for invalid input, file opening errors, and command execution errors. If an error occurs, an error message is displayed, and the program exits gracefully.
+
+## Makefile
+The Makefile included in the project simplifies the compilation process. The default make command compiles the source code into an executable. To clean up compiled files, use the following command:
 ```
-command to run if program contains helper info
+make clean
+
 ```
-
-## Authors
-
 Contributors names and contact info
 
 ex. Dominique Pizzie  
 ex. [@DomPizzie](https://twitter.com/dompizzie)
 
-## Version History
+##Additional Notes
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+The program uses the execvp() function for command execution.
+Please ensure that the program is compiled before running it.
+Feel free to customize the shell to add more features or enhance its functionality based on your needs. If you have any questions or encounter issues, please refer to the provided documentation or contact the author.
