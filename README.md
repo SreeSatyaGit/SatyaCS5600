@@ -1,23 +1,28 @@
 # Project Title
 
-Simple overview of use/purpose.
+Programming Assignment -1
 
-## Description
+## Overview
 
-An in-depth paragraph about your project and overview of use.
+This program implements a simple command-line shell in C. The shell can be run in interactive mode or batch mode. In interactive mode, the user can enter commands directly, while in batch mode, commands are read from a specified file.
+## Overview
+To compile the program, use the provided Makefile. Open a terminal in the same directory as the source code and Makefile and run the following command:
+```
+make
+```
+This will create an executable named shell.
 
-## Getting Started
+### Usage
 
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
+* Interactive Mode
+```
+./shell
+```
+* Batch Mode
+ ```
+./shell [batch file]
+```
+In interactive mode, the shell prompts the user to enter commands. Type commands and press Enter. To exit the shell, enter the command quit.
 ### Executing program
 
 * How to run the program
