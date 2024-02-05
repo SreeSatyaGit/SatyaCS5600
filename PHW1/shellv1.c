@@ -76,7 +76,6 @@ int main() {
 
             while (cmd_token != NULL && i < MAX_ARGUMENTS - 1) {
                 commands[i++] = cmd_token;
-                cmd_token = strtok(NULL, " ");
             }
 
             commands[i] = NULL;  // Null-terminate the commands array
