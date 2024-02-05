@@ -95,7 +95,8 @@ int main(int argc, char *argv[]) {
                 // End of input
                 break;
             }
-        } else {
+        } 
+        else {
             // Batch mode
             if (fgets(input, MAX_INPUT_SIZE, file) == NULL) {
                 // End of batch file
@@ -106,7 +107,7 @@ int main(int argc, char *argv[]) {
 
     char *delimiter = ";";
     char **tokens;
-    
+   
     int count = splitString(input, delimiter, &tokens);
 
     for (int i = 0; i < count; i++) {
@@ -114,13 +115,12 @@ int main(int argc, char *argv[]) {
         int j = 0;
         args[j++] = strtok(tokens[i], " \t\n");
         while ((args[j++] = strtok(NULL, " \t\n")) != NULL && j < 10);
-
         // Execute the command
         executeCommand(args);
-        
+        while (waitpid(-1, NULL, 0) > 0);
     }
         // Wait for all child processes to finish before prompting for the next input
-        while (waitpid(-1, NULL, 0) > 0);
+        
     }
 
     // Close batch file if opened
